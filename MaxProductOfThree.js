@@ -5,38 +5,37 @@ function solution(A) {
   let max = -Infinity;
 
   const newArr = A.sort((a, b) => a - b);
-  const negativeArr = [];
-  const positiveArr = [];
+  const negArr = [];
+  const nonNegArr = [];
   for (let i = 0; i < newArr.length; i++) {
-    if (newArr[i] < 0) negativeArr.push(newArr[i]);
-    else positiveArr.push(newArr[i]);
+    if (newArr[i] < 0) negArr.push(newArr[i]);
+    else nonNegArr.push(newArr[i]);
   }
 
-  if (negativeArr.length >= 2) {
+  if (negArr.length >= 2) {
     let negRes = null;
 
-    if (positiveArr.length === 0) {
+    if (nonNegArr.length === 0) {
       negRes =
-        negativeArr[negativeArr.length - 3] *
-        negativeArr[negativeArr.length - 2] *
-        negativeArr[negativeArr.length - 1];
+        negArr[negArr.length - 3] *
+        negArr[negArr.length - 2] *
+        negArr[negArr.length - 1];
     } else {
-      negRes =
-        negativeArr[0] * negativeArr[1] * positiveArr[positiveArr.length - 1];
+      negRes = negArr[0] * negArr[1] * nonNegArr[nonNegArr.length - 1];
     }
 
     if (negRes > max) max = negRes;
   }
 
-  if (positiveArr.length >= 3) {
-    const posRes =
-      positiveArr[positiveArr.length - 3] *
-      positiveArr[positiveArr.length - 2] *
-      positiveArr[positiveArr.length - 1];
-    if (posRes > max) max = posRes;
+  if (nonNegArr.length >= 3) {
+    const nonNegRes =
+      nonNegArr[nonNegArr.length - 3] *
+      nonNegArr[nonNegArr.length - 2] *
+      nonNegArr[nonNegArr.length - 1];
+    if (nonNegRes > max) max = nonNegRes;
   }
 
-  if (negativeArr.length < 2 && positiveArr.length < 3) {
+  if (negArr.length < 2 && nonNegArr.length < 3) {
     const res = A[0] * A[1] * A[2];
     if (res > max) max = res;
   }
